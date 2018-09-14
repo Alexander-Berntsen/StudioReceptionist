@@ -64,7 +64,7 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
                 if (listItem["GuestId"].ToString() == guestId)
                 {
                     listItem.DeleteObject();
-                    
+
                 }
             }
 
@@ -99,7 +99,7 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
                         Convert.ToBoolean(listItem["CheckedIn"]),
                         Convert.ToDateTime(listItem["CheckedInDateTime"]),
                         Convert.ToDateTime(listItem["CheckedOutDateTime"]),
-                        
+
                         // fix this
                         listItem["Host"].ToString(),
                         listItem["EmailAddress"].ToString()
