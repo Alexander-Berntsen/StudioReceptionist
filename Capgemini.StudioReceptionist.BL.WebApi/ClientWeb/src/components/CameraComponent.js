@@ -28,22 +28,23 @@ class CameraComponent extends Component {
   checkFaceRecognitionForMatch() {
     var id = 'mats.boberg%40capgemini.com';
 
-    this.fetchPersonalData(id);
-    //this.navigateToForm();
-
-    /*     let randomBoolean = Math.random() >= 0.5;
+    let randomBoolean = Math.random() >= 0.5;
     alert('Simulated Facial Recognition match: ' + randomBoolean);
 
     if (randomBoolean) {
+      this.state.firstName = 'Max';
+      this.state.lastName = 'Wallin';
+      this.state.company = 'Capgemini';
+      this.state.image = require('../resources/strings').defaultPhoto;
+
       this.fetchPersonalData();
     } else {
       this.navigateToForm();
     }
- */
   }
 
   fetchPersonalData(id) {
-    /*     fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
@@ -55,7 +56,10 @@ class CameraComponent extends Component {
       .then(response => {
         console.log('Success:', response);
         alert('Upload successful');
-      }); */
+        this.navigateToGreet();
+      });
+
+    /*
     fetch(
       'https://capgeministudioreceptionistblwebapi.azurewebsites.net/api/values?id=' +
         id,
@@ -78,8 +82,9 @@ class CameraComponent extends Component {
           company: response.Company,
           image: require('../resources/strings').defaultPhoto
         };
-        //this.navigateToGreet();
+        this.navigateToGreet();
       });
+*/
   }
 
   navigateToGreet() {

@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
-    contentBase: './dist',
+    contentBase: './public',
     hot: true
   }
 };
