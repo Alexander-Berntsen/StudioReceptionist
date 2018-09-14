@@ -1,6 +1,0 @@
-C:\Users\mboberg\source\repos\Capgemini.StudioReceptionist.BL.WebApi\Capgemini.StudioReceptionist.Entities\bin\MatsBoberg\Capgemini.StudioReceptionist.Entities.dll
-C:\Users\mboberg\source\repos\Capgemini.StudioReceptionist.BL.WebApi\Capgemini.StudioReceptionist.Entities\bin\MatsBoberg\Capgemini.StudioReceptionist.Entities.pdb
-C:\Users\mboberg\source\repos\Capgemini.StudioReceptionist.BL.WebApi\Capgemini.StudioReceptionist.Entities\obj\MatsBoberg\Capgemini.StudioReceptionist.Entities.csprojAssemblyReference.cache
-C:\Users\mboberg\source\repos\Capgemini.StudioReceptionist.BL.WebApi\Capgemini.StudioReceptionist.Entities\obj\MatsBoberg\Capgemini.StudioReceptionist.Entities.csproj.CoreCompileInputs.cache
-C:\Users\mboberg\source\repos\Capgemini.StudioReceptionist.BL.WebApi\Capgemini.StudioReceptionist.Entities\obj\MatsBoberg\Capgemini.StudioReceptionist.Entities.dll
-C:\Users\mboberg\source\repos\Capgemini.StudioReceptionist.BL.WebApi\Capgemini.StudioReceptionist.Entities\obj\MatsBoberg\Capgemini.StudioReceptionist.Entities.pdb
