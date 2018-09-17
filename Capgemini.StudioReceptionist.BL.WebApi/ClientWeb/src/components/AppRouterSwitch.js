@@ -11,6 +11,8 @@ class AppRouterSwitch extends Component {
   render() {
     return (
       <Switch>
+
+        
         <Route exact path={'/camera'} component={Camera} />
         <Route exact path={'/form'} component={Form} />
         <Route exact path={'/summary'} component={Summary} />
