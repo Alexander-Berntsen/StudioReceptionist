@@ -16,11 +16,13 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
 {
     public class ValuesController : ApiController
     {
-         // api/values/id
-        // GET api/values?id= [email address]
+        private Credentials credentials = new Credentials();
+
+        // api/values/id
+        // GET api/values?id= [email address]S
         public string Get(string id)
         {
-            SharePointOnlineServiceConsumer spoServiceConsumer = new SharePointOnlineServiceConsumer("https://capgemini.sharepoint.com/sites/StudioReceptionist", "xxxx", "yyyy");
+            SharePointOnlineServiceConsumer spoServiceConsumer = new SharePointOnlineServiceConsumer("https://capgemini.sharepoint.com/sites/StudioReceptionist", credentials.SharePointUsername , credentials.SharePointPassword);
        
             Guest guest = spoServiceConsumer.GetGuest(id);
 
@@ -36,9 +38,7 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
         {
             Guest guest = JsonConvert.DeserializeObject<Guest>(value);
 
-            SharePointOnlineServiceConsumer spoServiceConsumer = new SharePointOnlineServiceConsumer("https://capgemini.sharepoint.com/sites/StudioReceptionist", "xxxxx", "yyyyyy");
-
-
+            SharePointOnlineServiceConsumer spoServiceConsumer = new SharePointOnlineServiceConsumer("https://capgemini.sharepoint.com/sites/StudioReceptionist", credentials.SharePointUsername, credentials.SharePointPassword);
         }
 
         // PUT api/values/5
@@ -50,7 +50,7 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
         public void Delete(string id)
         {
 
-            SharePointOnlineServiceConsumer spoServiceConsumer = new SharePointOnlineServiceConsumer("https://capgemini.sharepoint.com/sites/StudioReceptionist", "xxxx", "yyyyy");
+            SharePointOnlineServiceConsumer spoServiceConsumer = new SharePointOnlineServiceConsumer("https://capgemini.sharepoint.com/sites/StudioReceptionist", credentials.SharePointUsername, credentials.SharePointPassword);
 
             spoServiceConsumer.DeleteGuestSPOnline(id);
         }

@@ -9,11 +9,14 @@ using System.Security;
 using System.Xml;
 
 using Capgemini.StudioReceptionist.Entities;
+using System.IO;
 
 namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
 {
     public class SharePointOnlineServiceConsumer
     {
+        public string username = string.Empty;
+        public string password = string.Empty;
         // define client context 
         private ClientContext myClientContext;
 
@@ -168,5 +171,6 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
             myClientContext.ExecuteQuery();
 
         }
+
     }
 }
