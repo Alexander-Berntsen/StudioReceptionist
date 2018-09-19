@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Capgemini.StudioReceptionist.ServiceConsumer.SPO;
 
 using Capgemini.StudioReceptionist.Entities;
+using System.Threading.Tasks;
 
 namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
 {
@@ -19,9 +20,10 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
         private Credentials credentials = new Credentials();
 
         // api/values/id
-        // GET api/values?id= [email address]S
+        // GET api/values?id= [email address]
         public string Get(string id)
         {
+
             SharePointOnlineServiceConsumer spoServiceConsumer = new SharePointOnlineServiceConsumer("https://capgemini.sharepoint.com/sites/StudioReceptionist", credentials.SharePointUsername , credentials.SharePointPassword);
        
             Guest guest = spoServiceConsumer.GetGuest(id);

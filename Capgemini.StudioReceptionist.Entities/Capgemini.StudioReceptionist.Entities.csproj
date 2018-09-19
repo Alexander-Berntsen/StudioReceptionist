@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Credentials.cs" />
     <Compile Include="Guest.cs" />
+    <Compile Include="LogBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
