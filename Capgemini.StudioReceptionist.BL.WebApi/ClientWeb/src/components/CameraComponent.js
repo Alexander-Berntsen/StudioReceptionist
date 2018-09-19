@@ -11,8 +11,6 @@ class CameraComponent extends Component {
     this.checkFaceRecognitionForMatch = this.checkFaceRecognitionForMatch.bind(
       this
     );
-    this.fetchPersonalData = this.fetchPersonalData.bind(this);
-
     console.log(props);
   }
 
@@ -24,68 +22,6 @@ class CameraComponent extends Component {
     this.state.image = this.webcam.getScreenshot();
     this.checkFaceRecognitionForMatch();
   };
-
-  checkFaceRecognitionForMatch() {
-    var id = 'mats.boberg%40capgemini.com';
-
-    let randomBoolean = Math.random() >= 0.5;
-    alert('Simulated Facial Recognition match: ' + randomBoolean);
-
-    if (randomBoolean) {
-      this.state.firstName = 'Max';
-      this.state.lastName = 'Wallin';
-      this.state.company = 'Capgemini';
-      this.state.image = require('../resources/strings').defaultPhoto;
-
-      this.fetchPersonalData();
-    } else {
-      this.navigateToForm();
-    }
-  }
-
-  fetchPersonalData(id) {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then(response => response.json())
-      .catch(error => console.error('Error:', error))
-      .then(response => {
-        console.log('Success:', response);
-        alert('Upload successful');
-        this.navigateToGreet();
-      });
-
-    /*
-    fetch(
-      'https://capgeministudioreceptionistblwebapi.azurewebsites.net/api/values?id=' +
-        id,
-      {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      }
-    )
-      .then(response => response.json())
-      .catch(error => console.error('Error:', error))
-      .then(response => {
-        console.log(response);
-        console.log(response.FirstName);
-        // TODO: Problem with response here, not received as json, just as string
-        this.state = {
-          firstName: response.FirstName,
-          lastName: response.LastName,
-          company: response.Company,
-          image: require('../resources/strings').defaultPhoto
-        };
-        this.navigateToGreet();
-      });
-*/
-  }
 
   navigateToGreet() {
     this.props.history.push({
@@ -99,6 +35,15 @@ class CameraComponent extends Component {
     });
   }
 
+  navigateToCheckOut() {
+    this.props.history.push({
+      pathname: '/checkout',
+      state: {
+        email: this.state.email
+      }
+    });
+  }
+
   navigateToForm() {
     this.props.history.push({
       pathname: '/form',
@@ -106,6 +51,30 @@ class CameraComponent extends Component {
         image: this.state.image
       }
     });
+  }
+
+  checkFaceRecognitionForMatch() {
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        console.log('Success:', response);
+        if (response.registered == true) {
+          if (response.checkedIn == true) {
+            this.navigateToCheckOut();
+          } else {
+            this.navigateToGreet();
+          }
+        } else {
+          this.navigateToForm();
+        }
+      });
   }
 
   render() {
