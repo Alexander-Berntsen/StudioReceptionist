@@ -359,3 +359,5 @@ chrome-user-data
 *.swp
 *.swo
 
+# Credentials for spo and acs
+Credentials.cs

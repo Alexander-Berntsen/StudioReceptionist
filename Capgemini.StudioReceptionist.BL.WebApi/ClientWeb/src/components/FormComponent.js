@@ -9,7 +9,8 @@ class FormComponent extends Component {
       telephone: '',
       email: '',
       company: '',
-      saveData: false
+      saveData: false, 
+      calleTestar: true
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);

@@ -9,11 +9,14 @@ using System.Security;
 using System.Xml;
 
 using Capgemini.StudioReceptionist.Entities;
+using System.IO;
 
 namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
 {
     public class SharePointOnlineServiceConsumer
     {
+        public string username = string.Empty;
+        public string password = string.Empty;
         // define client context 
         private ClientContext myClientContext;
 
@@ -64,7 +67,7 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
                 if (listItem["GuestId"].ToString() == guestId)
                 {
                     listItem.DeleteObject();
-                    
+
                 }
             }
 
@@ -99,7 +102,7 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
                         Convert.ToBoolean(listItem["CheckedIn"]),
                         Convert.ToDateTime(listItem["CheckedInDateTime"]),
                         Convert.ToDateTime(listItem["CheckedOutDateTime"]),
-                        
+
                         // fix this
                         listItem["Host"].ToString(),
                         listItem["EmailAddress"].ToString()
@@ -168,5 +171,6 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
             myClientContext.ExecuteQuery();
 
         }
+
     }
 }
