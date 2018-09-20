@@ -361,3 +361,7 @@ chrome-user-data
 
 # Credentials for spo and acs
 Credentials.cs
+
+# Bundled js files
+bundleProd.js
+bundleProd.js.map

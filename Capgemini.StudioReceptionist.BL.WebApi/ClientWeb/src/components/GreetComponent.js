@@ -4,14 +4,20 @@ class GreetComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.location.state.firstName,
+      firstName: this.props.location.state.firstName,
+      lastName: this.props.location.state.lastName,
       company: this.props.location.state.company,
-      image: this.props.location.state.image,
+      email: this.props.location.state.email,
       personToVisit: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.navigateToCamera = this.navigateToCamera.bind(this);
+  }
+
+  navigateToCamera() {
+    this.props.history.replace('/camera');
   }
 
   handleInputChange(event) {
@@ -25,15 +31,22 @@ class GreetComponent extends Component {
   }
 
   handleSubmit(event) {
-    if (this.state.personToVisit.length > 0) {
-      this.props.history.push({
-        pathname: '/checkedin',
-        state: {
-          personToVisit: this.state.personToVisit
-        }
-      });
-    } else {
+    if (this.state.personToVisit.length <= 0){
       alert("Please tell me who you're going to visit");
+    } else {
+      fetch('http://localhost:62064/api/ACS/CheckIn', {
+        method: 'POST',
+        body: JSON.stringify(this.state),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+          alert('Check in successful');
+          this.navigateToCamera();
+        });
     }
     event.preventDefault();
   }
@@ -42,7 +55,7 @@ class GreetComponent extends Component {
     return (
       <div>
         <h1 style={styles.text}>
-          Welcome {this.state.name}, {this.state.company}
+          Welcome {this.state.firstName} from {this.state.company}
         </h1>
         <form onSubmit={this.handleSubmit}>
           <label>

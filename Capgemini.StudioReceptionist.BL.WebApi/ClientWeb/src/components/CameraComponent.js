@@ -68,13 +68,15 @@ class CameraComponent extends Component {
         const parsedJson = JSON.parse(response);
         console.log("Is registered : " + parsedJson.registered);
         console.log("Is checked in : " + parsedJson.checkedIn);
-        if (parsedJson.registered) {
+        if (parsedJson.registered == "true") {
           console.log("User registered")
-          if (parsedJson.checkedIn) {
+          if (parsedJson.checkedIn == "true") {
             console.log("and checked in")
             this.state = {
               email: parsedJson.email
             }
+            console.log(this.state.email)
+            console.log(parsedJson.email)
             this.navigateToCheckOut();
           } else {
             console.log("and not checked in")

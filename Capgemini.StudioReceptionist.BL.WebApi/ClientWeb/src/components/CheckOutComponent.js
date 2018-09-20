@@ -11,6 +11,10 @@ class CheckOutComponent extends Component {
     this.navigateToCamera = this.navigateToCamera.bind(this);
   }
 
+  navigateToCamera() {
+    this.props.history.replace('/camera');
+  }
+
   checkOut() {
     fetch('http://localhost:62064/api/ACS/CheckOut', {
       method: 'POST',
@@ -34,11 +38,15 @@ class CheckOutComponent extends Component {
   render() {
     return (
       <div>
+        <h1>You are checked in already</h1>
+        <p style={styles.text}>Do you want to checkout? </p>        
         <button onClick={this.checkOut} style={styles.button}>
           Checkout
         </button>
+        <br />
+        <p style={styles.text}>Return to the start screen?</p>
         <button onClick={this.navigateToCamera} style={styles.button}>
-          New check-in
+          Start screen
         </button>
       </div>
     );
