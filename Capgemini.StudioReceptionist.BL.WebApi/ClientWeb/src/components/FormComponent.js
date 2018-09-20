@@ -9,13 +9,14 @@ class FormComponent extends Component {
       telephone: '',
       email: '',
       company: '',
-      saveData: false, 
-      calleTestar: true
+      saveData: false,
+      image: this.props.location.state.image
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.navigateToSummary = this.navigateToSummary.bind(this);
+    this.navigateToCamera = this.navigateToCamera.bind(this);
   }
 
   handleInputChange(event) {
@@ -30,11 +31,50 @@ class FormComponent extends Component {
 
   handleSubmit(event) {
     if (this.state.firstName.length > 0 && this.state.company.length > 0) {
+      fetch('http://localhost:62064/api/ACS/RegisterRequest/AddPerson', {
+        method: 'POST',
+        body: JSON.stringify(this.state),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+          console.log('Success:', response);
+          // const personId = response.personId
+          const responseData = {
+            personId: response.personId,
+            image: this.state.image
+          }
+          fetch('http://localhost:62064/api/ACS/RegisterRequest/AddFaceToPerson', {
+            method: 'POST',
+            body: JSON.stringify(responseData),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8'
+            }
+          })
+            .then(response => response.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+              if (response == true) {
+                alert('Upload successful, please identify yourself in camera');
+              } else {
+                alert('Something went very wrong...');
+              }
+              this.navigateToCamera();
+            });
+        });
+  
       this.navigateToSummary();
     } else {
       alert('Please, complete the form');
     }
     event.preventDefault();
+  }
+
+  navigateToCamera() {
+    this.props.history.replace('/camera');
   }
 
   navigateToSummary() {
@@ -51,33 +91,6 @@ class FormComponent extends Component {
       }
     });
   }
-
-  /*
-      Database columns:
-        ID (auto generated)
-        First name
-        Last name
-        Telephone Number
-        Company
-        Meeting who
-        Checked in
-        Accept to save image (checkbox)
-  */
-
-  /*
-
-    "FirstName": "Mats",
-    "LastName": "Boberg",
-    "MobileNumber": "0704868757",
-    "Company": "Capgemini",
-    "AllowSaveData": true,
-    "CheckedIn": true,
-    "CheckedInDateTime": "2018-09-03T17:00:00Z",
-    "CheckedOutDateTime": "2018-09-03T07:00:00Z",
-    "Host": "Microsoft.SharePoint.Client.FieldUserValue",
-    "EmailAddress": "mats.boberg@capgemini.com"
-
-  */
 
   render() {
     return (

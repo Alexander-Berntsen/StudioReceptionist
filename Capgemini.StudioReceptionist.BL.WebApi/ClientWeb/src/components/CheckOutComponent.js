@@ -3,12 +3,16 @@ import React, { Component } from 'react';
 class CheckOutComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: this.props.location.state.email
+    };
+
     this.checkOut = this.checkOut.bind(this);
     this.navigateToCamera = this.navigateToCamera.bind(this);
   }
 
   checkOut() {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch('http://localhost:62064/api/ACS/CheckOut', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
@@ -18,7 +22,6 @@ class CheckOutComponent extends Component {
       .then(response => response.json())
       .catch(error => console.error('Error:', error))
       .then(response => {
-        console.log('Success:', response);
         alert('Checkout successful');
         this.navigateToCamera();
       });
@@ -53,4 +56,4 @@ const styles = {
   }
 };
 
-export default CheckedInComponent;
+export default CheckOutComponent;

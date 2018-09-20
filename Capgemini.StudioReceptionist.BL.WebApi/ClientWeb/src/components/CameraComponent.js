@@ -30,7 +30,7 @@ class CameraComponent extends Component {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         company: this.state.company,
-        image: this.state.image
+        email: this.state.email
       }
     });
   }
@@ -54,7 +54,7 @@ class CameraComponent extends Component {
   }
 
   checkFaceRecognitionForMatch() {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch('http://localhost:62064/api/ACS/DetectAndIdentifyFace', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
@@ -67,11 +67,20 @@ class CameraComponent extends Component {
         console.log('Success:', response);
         if (response.registered == true) {
           if (response.checkedIn == true) {
+            this.state = {
+              email: response.email
+            }
             this.navigateToCheckOut();
           } else {
+            this.state = {
+              firstName: response.firstName,
+              lastName: response.lastName,
+              company: response.company,
+              email: response.email
+            }
             this.navigateToGreet();
           }
-        } else {
+        } else {          
           this.navigateToForm();
         }
       });
