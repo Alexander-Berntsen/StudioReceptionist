@@ -7,10 +7,10 @@ namespace Capgemini.StudioReceptionist.Entities
         //Properties
         private string _FirstName;
         private string _LastName;
-        private string _MobileNumber;
+        private string _Telephone;
         private string _Company;
-        private string _EmailAddress;
-        private bool _AllowSaveData;
+        private string _Email;
+        private bool _SaveData;
 
         public Guest()
         {
@@ -18,23 +18,23 @@ namespace Capgemini.StudioReceptionist.Entities
         }
 
         //Constructor
-        public Guest(string _FirstName, string _LastName, string _MobileNumber,
-            string _Company, string _EmailAddress, bool _AllowSaveData)
+        public Guest(string _FirstName, string _LastName, string _Telephone,
+            string _Company, string _Email, bool _SaveData)
         {
             this.FirstName = _FirstName;
             this.LastName = _LastName;
-            this.MobileNumber = _MobileNumber;
+            this.Telephone = _Telephone;
             this.Company = _Company;
-            this.EmailAddress = _EmailAddress;
-            this.AllowSaveData = _AllowSaveData;
+            this.Email = _Email;
+            this.SaveData = _SaveData;
         }
         //GET & SET
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string MobileNumber { get; set; }
+        public string Telephone { get; set; }
         public string Company { get; set; }
-        public string EmailAddress { get; set; }
-        public bool  AllowSaveData { get; set; }
+        public string Email { get; set; }
+        public bool  SaveData { get; set; }
         ////Properties Define..
         //private string firstName;
         //private string lastName;

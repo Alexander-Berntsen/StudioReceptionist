@@ -12,12 +12,14 @@ using System.Web.Http.Cors;
 using System.Net.Http;
 using System.Net;
 using System.Diagnostics;
+using System.Threading;
+using System.Globalization;
 
 namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
 {
     public class ACSController : ApiController
     {
-       SPOController spo;
+        SPOController spo;
         //private string imageString = string.Empty;
         private AzureCognitiveServicesServiceConsumer.WrapperPerson acs = new AzureCognitiveServicesServiceConsumer.WrapperPerson();
         public ACSController()
@@ -29,6 +31,7 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
         [Route("api/ACS/DetectAndIdentifyFace")]
         public HttpResponseMessage InitialRequest(HttpRequestMessage request)
         {
+
             string response = string.Empty;
             string body = request.Content.ReadAsStringAsync().Result;
             var output = JsonConvert.DeserializeObject<dynamic>(body);
@@ -41,7 +44,7 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
             if (string.IsNullOrEmpty(personId))
             {
                 response = "{\"checkedIn\":\"false\", \"registered\":\"false\"}";
-                return Request.CreateResponse(HttpStatusCode.NotFound, response); //TODO, return image to resubmitt with registration form and registered = false.
+                return Request.CreateResponse(HttpStatusCode.OK, response); //TODO, return image to resubmitt with registration form and registered = false.
             }
 
             //Fetch user data from SPO
@@ -50,15 +53,20 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
             string welcomeMessage = spo.WelcomeMessage(guest);
 
             //TODO, Controll if checked in or not in SPO based on email connected to personId.
-            if (spo.GuestCheckedIn(guest.EmailAddress))
+            if (spo.GuestCheckedIn(guest.Email))
             {
-                response = "{\"checkedIn\":\"true\", \"registered\":\"true\"}";
+                response = "{\"checkedIn\":\"true\", \"registered\":\"true\",\"email\":\"" + guest.Email + "\"}";
             return Request.CreateResponse(HttpStatusCode.OK, response); //TODO return email and fName and lName.
 
             }
             else
             {
-                response = "{\"checkedIn\":\"false\", \"registered\":\"true\"}";
+                response = "{\"checkedIn\":\"false\", \"registered\":\"true\", " +
+                    "\"email\":\"" + guest.Email + "\"," +
+                    "\"firstName\":\"" + guest.FirstName + "\"," +
+                    "\"lastName\":\"" + guest.LastName + "\"," +
+                    "\"company\":\"" + guest.Company + "\"" +
+                    "}";
                 return Request.CreateResponse(HttpStatusCode.OK, response); //TODO return email and fName and lName.
             }
         }
@@ -69,7 +77,6 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
         {
             string body = request.Content.ReadAsStringAsync().Result;
             Guest guest = JsonConvert.DeserializeObject<Guest>(body);
-
             //Create new person in person group in Azure.
             string personId = CreatePerson(guest);
             //Save the user to SPO with the relevant faceId.
@@ -105,7 +112,7 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
             var json = JsonConvert.DeserializeObject<dynamic>(body);
             //Request contains email and host.
             string email = json.email;
-            string host = json.host;
+            string host = json.personToVisit;
 
             spo.CreateLogEntry(email, host);
 
@@ -119,15 +126,16 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
             string body = request.Content.ReadAsStringAsync().Result;
 
             var json = JsonConvert.DeserializeObject<dynamic>(body);
-            //Request contains email.
-            string imageString = json.image;
+            string email = json.email;
+            ////Request contains email.
+            //string imageString = json.image;
 
-            //Fetch guest email
-            string personId = IdentifyPerson(imageString);
-            Guest guest = spo.FetchUserData(personId);
+            ////Fetch guest email
+            //string personId = IdentifyPerson(imageString);
+            //Guest guest = spo.FetchUserData(personId);
 
             //Find current Log by email and check out.
-            spo.CheckOutLogEntry(guest.EmailAddress);
+            spo.CheckOutLogEntry(email);
 
             return Request.CreateResponse(HttpStatusCode.OK, true);
         }
@@ -156,7 +164,7 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
         public string CreatePerson(Guest guest)
         {
             //Creating person with email adress as Id in Azure.
-            Task<string> personId = acs.AzureCreatePersonInGroup(guest.EmailAddress);
+            Task<string> personId = acs.AzureCreatePersonInGroup(guest.Email);
             personId.Wait();
             return personId.Result;
         }

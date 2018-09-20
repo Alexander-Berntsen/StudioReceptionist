@@ -10,6 +10,8 @@ using System.Xml;
 
 using Capgemini.StudioReceptionist.Entities;
 using System.IO;
+using System.Threading;
+using System.Globalization;
 
 namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
 {
@@ -195,10 +197,10 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
 
             oListItem["FirstName"] = guest.FirstName;
             oListItem["LastName"] = guest.LastName;
-            oListItem["MobileNumber"] = guest.MobileNumber;
+            oListItem["MobileNumber"] = guest.Telephone;
             oListItem["Company"] = guest.Company;
-            oListItem["SaveData"] = guest.AllowSaveData;
-            oListItem["EmailAddress"] = guest.EmailAddress;
+            oListItem["SaveData"] = guest.SaveData;
+            oListItem["EmailAddress"] = guest.Email;
 
             oListItem.Update();
             myClientContext.ExecuteQuery();
@@ -206,6 +208,8 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
 
         public void CreateLogEntrySPOnline(string email, string host)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("sv-SE");
+
             List oList = this.myClientContext.Web.Lists.GetByTitle("LogBook");
             ListItemCreationInformation itemCreateInfo = new ListItemCreationInformation();
             ListItem oListItem = oList.AddItem(itemCreateInfo);
@@ -221,6 +225,8 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
 
         public void CheckOutLogEntrySPOnline(string email)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("sv-SE");
+
             List oList = this.myClientContext.Web.Lists.GetByTitle("LogBook");
             var listItems = oList.GetItems(CamlQuery.CreateAllItemsQuery());
             myClientContext.Load(listItems);
