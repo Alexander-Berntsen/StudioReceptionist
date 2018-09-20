@@ -40,7 +40,7 @@ namespace Capgemini.StudioReceptionist.BL.WebApi.Controllers
             //If unable to identify person.
             if (string.IsNullOrEmpty(personId))
             {
-                response = "{\"image\":" + imageString + ", \"registered\":\"false\"}";
+                response = "{\"checkedIn\":\"false\", \"registered\":\"false\"}";
                 return Request.CreateResponse(HttpStatusCode.NotFound, response); //TODO, return image to resubmitt with registration form and registered = false.
             }
 
