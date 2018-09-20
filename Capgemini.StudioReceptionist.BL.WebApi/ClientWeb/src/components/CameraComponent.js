@@ -65,22 +65,29 @@ class CameraComponent extends Component {
       .catch(error => console.error('Error:', error))
       .then(response => {
         console.log('Success:', response);
-        if (response.registered == true) {
-          if (response.checkedIn == true) {
+        const parsedJson = JSON.parse(response);
+        console.log("Is registered : " + parsedJson.registered);
+        console.log("Is checked in : " + parsedJson.checkedIn);
+        if (parsedJson.registered) {
+          console.log("User registered")
+          if (parsedJson.checkedIn) {
+            console.log("and checked in")
             this.state = {
-              email: response.email
+              email: parsedJson.email
             }
             this.navigateToCheckOut();
           } else {
+            console.log("and not checked in")
             this.state = {
-              firstName: response.firstName,
-              lastName: response.lastName,
-              company: response.company,
-              email: response.email
+              firstName: parsedJson.firstName,
+              lastName: parsedJson.lastName,
+              company: parsedJson.company,
+              email: parsedJson.email
             }
             this.navigateToGreet();
           }
         } else {          
+          console.log("User not registered")
           this.navigateToForm();
         }
       });

@@ -30,6 +30,8 @@ class FormComponent extends Component {
   }
 
   handleSubmit(event) {
+    console.log("State som gar till backend");
+    console.log(this.state);
     if (this.state.firstName.length > 0 && this.state.company.length > 0) {
       fetch('http://localhost:62064/api/ACS/RegisterRequest/AddPerson', {
         method: 'POST',
@@ -42,11 +44,14 @@ class FormComponent extends Component {
         .catch(error => console.error('Error:', error))
         .then(response => {
           console.log('Success:', response);
-          // const personId = response.personId
+          console.log(response.personId);
+          const parsedJson = JSON.parse(response);
+          console.log(parsedJson.personId);
           const responseData = {
-            personId: response.personId,
+            personId: parsedJson.personId,
             image: this.state.image
           }
+          console.log(responseData);
           fetch('http://localhost:62064/api/ACS/RegisterRequest/AddFaceToPerson', {
             method: 'POST',
             body: JSON.stringify(responseData),
@@ -65,8 +70,6 @@ class FormComponent extends Component {
               this.navigateToCamera();
             });
         });
-  
-      this.navigateToSummary();
     } else {
       alert('Please, complete the form');
     }
@@ -118,7 +121,7 @@ class FormComponent extends Component {
         <label>
           Telephone:
           <input
-            name="phone"
+            name="telephone"
             type="text"
             style={styles.inputField}
             value={this.state.value}
