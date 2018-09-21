@@ -11,7 +11,6 @@ class CameraComponent extends Component {
     this.checkFaceRecognitionForMatch = this.checkFaceRecognitionForMatch.bind(
       this
     );
-    console.log(props);
   }
 
   setRef = webcam => {
@@ -64,32 +63,23 @@ class CameraComponent extends Component {
       .then(response => response.json())
       .catch(error => console.error('Error:', error))
       .then(response => {
-        console.log('Success:', response);
         const parsedJson = JSON.parse(response);
-        console.log("Is registered : " + parsedJson.registered);
-        console.log("Is checked in : " + parsedJson.checkedIn);
-        if (parsedJson.registered == "true") {
-          console.log("User registered")
-          if (parsedJson.checkedIn == "true") {
-            console.log("and checked in")
+        if (parsedJson.registered == 'true') {
+          if (parsedJson.checkedIn == 'true') {
             this.state = {
               email: parsedJson.email
-            }
-            console.log(this.state.email)
-            console.log(parsedJson.email)
+            };
             this.navigateToCheckOut();
           } else {
-            console.log("and not checked in")
             this.state = {
               firstName: parsedJson.firstName,
               lastName: parsedJson.lastName,
               company: parsedJson.company,
               email: parsedJson.email
-            }
+            };
             this.navigateToGreet();
           }
-        } else {          
-          console.log("User not registered")
+        } else {
           this.navigateToForm();
         }
       });

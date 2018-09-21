@@ -30,8 +30,6 @@ class FormComponent extends Component {
   }
 
   handleSubmit(event) {
-    console.log("State som gar till backend");
-    console.log(this.state);
     if (this.state.firstName.length > 0 && this.state.company.length > 0) {
       fetch('http://localhost:62064/api/ACS/RegisterRequest/AddPerson', {
         method: 'POST',
@@ -43,22 +41,21 @@ class FormComponent extends Component {
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-          console.log('Success:', response);
-          console.log(response.personId);
           const parsedJson = JSON.parse(response);
-          console.log(parsedJson.personId);
           const responseData = {
             personId: parsedJson.personId,
             image: this.state.image
-          }
-          console.log(responseData);
-          fetch('http://localhost:62064/api/ACS/RegisterRequest/AddFaceToPerson', {
-            method: 'POST',
-            body: JSON.stringify(responseData),
-            headers: {
-              'Content-type': 'application/json; charset=UTF-8'
+          };
+          fetch(
+            'http://localhost:62064/api/ACS/RegisterRequest/AddFaceToPerson',
+            {
+              method: 'POST',
+              body: JSON.stringify(responseData),
+              headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+              }
             }
-          })
+          )
             .then(response => response.json())
             .catch(error => console.error('Error:', error))
             .then(response => {
