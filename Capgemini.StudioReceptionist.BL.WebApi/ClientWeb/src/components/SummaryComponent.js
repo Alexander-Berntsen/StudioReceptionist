@@ -14,8 +14,6 @@ class SummaryComponent extends Component {
       image: this.props.location.state.image
     };
 
-    console.log(this.state);
-
     this.submitToBackend = this.submitToBackend.bind(this);
   }
 
@@ -30,7 +28,6 @@ class SummaryComponent extends Component {
       .then(response => response.json())
       .catch(error => console.error('Error:', error))
       .then(response => {
-        console.log('Success:', response);
         alert('Upload successful');
         this.navigateToGreetScreen();
       });
