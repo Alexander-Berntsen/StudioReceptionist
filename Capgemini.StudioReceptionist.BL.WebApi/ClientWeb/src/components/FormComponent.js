@@ -46,7 +46,6 @@ class FormComponent extends Component {
             personId: parsedJson.personId,
             image: this.state.image
           }
-          console.log(responseData);
           fetch(location.protocol + '//' + location.host +'/api/ACS/RegisterRequest/AddFaceToPerson', {
             method: 'POST',
             body: JSON.stringify(responseData),
