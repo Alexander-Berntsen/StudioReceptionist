@@ -33,7 +33,7 @@ class FormComponent extends Component {
     console.log("State som gar till backend");
     console.log(this.state);
     if (this.state.firstName.length > 0 && this.state.company.length > 0) {
-      fetch('http://localhost:62064/api/ACS/RegisterRequest/AddPerson', {
+      fetch(location.protocol + '//' + location.host +'/api/ACS/RegisterRequest/AddPerson', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -52,7 +52,7 @@ class FormComponent extends Component {
             image: this.state.image
           }
           console.log(responseData);
-          fetch('http://localhost:62064/api/ACS/RegisterRequest/AddFaceToPerson', {
+          fetch(location.protocol + '//' + location.host +'/api/ACS/RegisterRequest/AddFaceToPerson', {
             method: 'POST',
             body: JSON.stringify(responseData),
             headers: {

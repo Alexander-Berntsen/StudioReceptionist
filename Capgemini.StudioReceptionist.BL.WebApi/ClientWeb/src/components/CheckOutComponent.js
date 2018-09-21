@@ -16,7 +16,7 @@ class CheckOutComponent extends Component {
   }
 
   checkOut() {
-    fetch('http://localhost:62064/api/ACS/CheckOut', {
+    fetch(location.protocol + '//' + location.host +'/api/ACS/CheckOut', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
