@@ -11,11 +11,6 @@ class TopBannerComponent extends Component {
   render() {
     return (
       <NavLink to="/camera">
-        {/*         <img
-          src={require('../images/capgemini-logo.png')}
-          style={styles.logo}
-        />
- */}
         <img src={capLogo} style={styles.logo} />
         <hr />
       </NavLink>

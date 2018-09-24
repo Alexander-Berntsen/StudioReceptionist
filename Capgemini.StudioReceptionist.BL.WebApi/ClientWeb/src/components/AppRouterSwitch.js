@@ -6,21 +6,18 @@ import Greet from './GreetComponent';
 import CheckedIn from './CheckedInComponent';
 import CheckOut from './CheckOutComponent';
 
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 class AppRouterSwitch extends Component {
   render() {
     return (
       <Switch>
-
-        
-        <Route exact path={'/camera'} component={Camera} />
-        <Route exact path={'/form'} component={Form} />
-        <Route exact path={'/summary'} component={Summary} />
-        <Route exact path={'/greet'} component={Greet} />
-        <Route exact path={'/checkedin'} component={CheckedIn} />
-        <Route exact path={'/checkout'} component={CheckOut} />
-        <Redirect from="**" to="/camera" />
+        <Route exact path={'/'} component={Camera} />
+        <Route path={'/form'} component={Form} />
+        <Route path={'/summary'} component={Summary} />
+        <Route path={'/greet'} component={Greet} />
+        <Route path={'/checkedin'} component={CheckedIn} />
+        <Route path={'/checkout'} component={CheckOut} />
       </Switch>
     );
   }
