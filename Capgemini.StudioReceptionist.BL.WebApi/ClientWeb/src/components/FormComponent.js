@@ -31,7 +31,7 @@ class FormComponent extends Component {
 
   handleSubmit(event) {
     if (this.state.firstName.length > 0 && this.state.company.length > 0) {
-      fetch('http://localhost:62064/api/ACS/RegisterRequest/AddPerson', {
+      fetch(location.protocol + '//' + location.host +'/api/ACS/RegisterRequest/AddPerson', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -45,17 +45,14 @@ class FormComponent extends Component {
           const responseData = {
             personId: parsedJson.personId,
             image: this.state.image
-          };
-          fetch(
-            'http://localhost:62064/api/ACS/RegisterRequest/AddFaceToPerson',
-            {
-              method: 'POST',
-              body: JSON.stringify(responseData),
-              headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-              }
+          }
+          fetch(location.protocol + '//' + location.host +'/api/ACS/RegisterRequest/AddFaceToPerson', {
+            method: 'POST',
+            body: JSON.stringify(responseData),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8'
             }
-          )
+          })
             .then(response => response.json())
             .catch(error => console.error('Error:', error))
             .then(response => {

@@ -34,7 +34,7 @@ class GreetComponent extends Component {
     if (this.state.personToVisit.length <= 0){
       alert("Please tell me who you're going to visit");
     } else {
-      fetch('http://localhost:62064/api/ACS/CheckIn', {
+      fetch(location.protocol + '//' + location.host +'/api/ACS/CheckIn', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {

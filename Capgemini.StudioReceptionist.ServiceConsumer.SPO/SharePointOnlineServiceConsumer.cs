@@ -28,14 +28,12 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
             // ClienContext - Get the context for the SharePoint Online Site  
             using (myClientContext = new ClientContext(sharePointOnlineSiteURL))
             {
-
                 SecureString secureString = new SecureString();
 
                 foreach (char c in password)
                 {
                     secureString.AppendChar(c);
                 }
-
 
                 // SharePoint Online Credentials  
                 myClientContext.Credentials = new SharePointOnlineCredentials(userName, secureString);
@@ -172,23 +170,6 @@ namespace Capgemini.StudioReceptionist.ServiceConsumer.SPO
 
         public void SaveGuestSPOnline(Guest guest, string azurePersonId)
         {
-
-            // ClienContext - Get the context for the SharePoint Online Site  
-
-            // Get the SharePoint web  
-            //Web web = myClientContext.Web;
-            //Get the user
-            //User user = myClientContext.Web.EnsureUser(guest.EmailAddress);
-
-            //load user properties
-            //myClientContext.Load(user);
-
-            // Load the Web properties  
-            //myClientContext.Load(web);
-
-            // Execute the query to the server.  
-            //myClientContext.ExecuteQuery();
-
             List oList = this.myClientContext.Web.Lists.GetByTitle("PersonList");
             ListItemCreationInformation itemCreateInfo = new ListItemCreationInformation();
             ListItem oListItem = oList.AddItem(itemCreateInfo);

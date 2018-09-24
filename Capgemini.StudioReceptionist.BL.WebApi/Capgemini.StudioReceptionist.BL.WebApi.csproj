@@ -186,18 +186,17 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\ACSController.cs" />
     <Compile Include="Controllers\SPOController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="69e86cd7fedf06485e42090988ff7ebe-capgemini-logo.png" />
+    <Content Include="69e86cd7fedf06485e42090988ff7ebe.png" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="ClientWeb\dist\bundleProd.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -230,6 +229,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\CapgeminiStudioReceptionistBLWebApi - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\CapgeminiStudioReceptionistBLWebApi20180920024115 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -252,7 +252,6 @@
     <None Include="ClientWeb\.gitignore" />
     <None Include="ClientWeb\README.md" />
     <None Include="ClientWeb\package.json" />
-    <Content Include="ClientWeb\webpack.config.js" />
     <None Include="ClientWeb\.git\COMMIT_EDITMSG" />
     <None Include="ClientWeb\.git\FETCH_HEAD" />
     <None Include="ClientWeb\.git\HEAD" />
@@ -346,7 +345,6 @@
     <None Include="ClientWeb\.git\refs\remotes\origin\firebase" />
     <None Include="ClientWeb\.git\refs\remotes\origin\master" />
     <None Include="ClientWeb\.git\refs\tags\v0.0.1" />
-    <Content Include="ClientWeb\dist\index.html" />
     <None Include="ClientWeb\src\.DS_Store" />
     <Content Include="ClientWeb\src\index.js" />
     <Content Include="ClientWeb\src\components\AppComponent.js" />

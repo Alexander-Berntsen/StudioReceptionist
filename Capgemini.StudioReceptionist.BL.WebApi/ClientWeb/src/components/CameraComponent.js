@@ -53,7 +53,7 @@ class CameraComponent extends Component {
   }
 
   checkFaceRecognitionForMatch() {
-    fetch('http://localhost:62064/api/ACS/DetectAndIdentifyFace', {
+    fetch(location.protocol + '//' + location.host +'/api/ACS/DetectAndIdentifyFace', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
